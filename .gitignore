@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Compiled output
+out/
+dist/
+
+# WASM build artifacts
+*.wasm
+*.js.map
+
+# Extension package
+*.vsix
+
+# Emscripten cache
+.emscripten_cache/
+.emscripten
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.vscode/*.log
+*.log
+
+# Environment
+.env
+.env.local
+
+# C++ build artifacts
+*.o
+*.a
+*.out
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
