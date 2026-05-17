@@ -3,7 +3,7 @@ export enum types {
     jwt,
     saml,
     paseto,
-    api,
+    unsupported,
     invalid
 }
 

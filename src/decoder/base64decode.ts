@@ -1,6 +1,5 @@
-
-
 export default function decodeBase64(base64: string) {
+    base64 = base64.normalize("NFKD")
     let base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     let charMap = Object.fromEntries([...base64Chars].map((c, i) => [c, i]));
 
@@ -16,5 +15,5 @@ export default function decodeBase64(base64: string) {
         result += String.fromCharCode(parseInt(bits.substr(i, 8), 2));
     }
     
-    return result.toString();
+    return result;
 }
