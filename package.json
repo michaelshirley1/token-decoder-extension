@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "token-decoder.helloWorld",
-        "title": "Hello World"
+        "command": "token-decoder.decode",
+        "title": "Token Decoder"
       }
     ]
   },
@@ -25,7 +25,9 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "build:wasm": "bash scripts/build-wasm.sh",
+    "build": "npm run build:wasm && npm run compile"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
