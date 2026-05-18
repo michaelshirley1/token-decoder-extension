@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/michaelshirley1/token-decoder-extension"
   },
-  "icon": "icon.png",
+  "icon": "logo.png",
   "engines": {
     "vscode": "^1.120.0"
   },
