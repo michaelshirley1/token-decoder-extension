@@ -1,10 +1,10 @@
 import * as vscode from 'vscode'
 import { TOKEN_REGEX, types } from '../token/detector/model'
 import { detectTokenType } from '../token/detector/detector'
-import { displayInvalidBase64, displayBase64 } from '../token/types.ts/base64'
-import displayJWT from '../token/types.ts/jwt'
-import displayPASETO from '../token/types.ts/paseto'
-import displaySAML from '../token/types.ts/saml'
+import { displayInvalidBase64, displayBase64 } from '../token/types/base64'
+import displayJWT from '../token/types/jwt'
+import displayPASETO from '../token/types/paseto'
+import displaySAML from '../token/types/saml'
 
 export const hoverProvider: vscode.HoverProvider = {
     provideHover(document, position) {
