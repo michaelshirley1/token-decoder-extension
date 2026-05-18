@@ -2,12 +2,12 @@
   "name": "token-decoder",
   "displayName": "token-decoder",
   "description": "Stop putting your precious tokens on shady websites! This is a open source token decoder for use in VS Code. Supports: JWT, PASETO, SAML, Base64, and more",
-  "version": "0.0.1",
-  "publisher": "your-publisher-id",
+  "version": "1.0.0",
+  "publisher": "MichaelShirley",
   "repository": {
-        "type": "git",
-        "url": "https://github.com/yourusername/jwt-safe"
-    },
+    "type": "git",
+    "url": "https://github.com/michaelshirley1/token-decoder-extension"
+  },
   "icon": "icon.png",
   "engines": {
     "vscode": "^1.120.0"
