@@ -1,3 +1,7 @@
+![Installs](https://vsmarketplacebadges.dev/installs/MichaelShirley.token-decoder.svg)
+![Rating](https://vsmarketplacebadges.dev/rating/MichaelShirley.token-decoder.svg)
+![Version](https://vsmarketplacebadges.dev/version/MichaelShirley.token-decoder.svg)
+
 # Token Decoder
 
 Stop pasting your tokens into shady websites. Token Decoder is a VS Code extension that decodes and inspects tokens directly in your editor. Just hover over one!
