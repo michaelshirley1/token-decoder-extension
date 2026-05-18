@@ -6,7 +6,7 @@
 
 Stop pasting your tokens into shady websites. Token Decoder is a VS Code extension that decodes and inspects tokens directly in your editor. Just hover over one!
 
-<img width="357" height="389" alt="image" src="https://github.com/user-attachments/assets/05a77548-ee8e-4c80-aea3-330c372ff179" />
+<img width="800" height="450" alt="ezgif-501474117231efce" src="https://github.com/user-attachments/assets/ee5a0d7d-5cc8-433a-86aa-b6f0cbd68f4e" />
 
 ## Grab it here!
 https://marketplace.visualstudio.com/items?itemName=MichaelShirley.token-decoder
