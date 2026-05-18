@@ -2,7 +2,7 @@
   "name": "token-decoder",
   "displayName": "Token Decoder",
   "description": "JWT, PASETO, SAML, Base64, and more. Stop putting your precious tokens on shady websites! This is a open source token decoder for use in VS Code",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "publisher": "MichaelShirley",
   "repository": {
     "type": "git",
