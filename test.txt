@@ -1,0 +1,173 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  JWT TOKENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[JWT-1] Standard HS256 token (no expiry)
+Header:  {"alg":"HS256","typ":"JWT"}
+Payload: {"sub":"1234567890","name":"John Doe","iat":1516239022}
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+
+[JWT-2] RS256 token with expiry — EXPIRED (exp: 2021-01-01)
+Header:  {"alg":"RS256","typ":"JWT"}
+Payload: {"sub":"user-abc-123","name":"Jane Smith","roles":["admin","viewer"],"iat":1609372800,"exp":1609459200}
+
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLWFiYy0xMjMiLCJuYW1lIjoiSmFuZSBTbWl0aCIsInJvbGVzIjpbImFkbWluIiwidmlld2VyIl0sImlhdCI6MTYwOTM3MjgwMCwiZXhwIjoxNjA5NDU5MjAwfQ.SIGNATURE_PLACEHOLDER
+
+
+[JWT-3] ES384 token with future expiry (exp: 2099-01-01)
+Header:  {"alg":"ES384","typ":"JWT","kid":"key-2024-01"}
+Payload: {"sub":"svc-account","iss":"https://auth.example.com","aud":"api.example.com","iat":1700000000,"exp":4070908800}
+
+eyJhbGciOiJFUzM4NCIsInR5cCI6IkpXVCIsImtpZCI6ImtleS0yMDI0LTAxIn0.eyJzdWIiOiJzdmMtYWNjb3VudCIsImlzcyI6Imh0dHBzOi8vYXV0aC5leGFtcGxlLmNvbSIsImF1ZCI6ImFwaS5leGFtcGxlLmNvbSIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjo0MDcwOTA4ODAwfQ.SIGNATURE_PLACEHOLDER
+
+
+[JWT-4] Minimal token — no typ in header
+Header:  {"alg":"none"}
+Payload: {"sub":"test"}
+
+eyJhbGciOiJub25lIn0.eyJzdWIiOiJ0ZXN0In0.
+
+
+[JWT-5] Token with nested claims
+Header:  {"alg":"HS512","typ":"JWT"}
+Payload: {"sub":"42","iss":"auth-server","email":"user@example.com","profile":{"firstName":"Alice","lastName":"Wonder"},"permissions":["read","write","delete"],"iat":1700000000,"exp":4070908800}
+
+eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MiIsImlzcyI6ImF1dGgtc2VydmVyIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwicHJvZmlsZSI6eyJmaXJzdE5hbWUiOiJBbGljZSIsImxhc3ROYW1lIjoiV29uZGVyIn0sInBlcm1pc3Npb25zIjpbInJlYWQiLCJ3cml0ZSIsImRlbGV0ZSJdLCJpYXQiOjE3MDAwMDAwMDAsImV4cCI6NDA3MDkwODgwMH0.SIGNATURE_PLACEHOLDER
+
+
+[JWT-INVALID-1] Wrong number of parts (only 2 segments — missing signature)
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0
+
+
+[JWT-INVALID-2] Correct structure but corrupted payload (not valid base64url JSON)
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.NOTVALIDBASE64!!!.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PASETO TOKENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[PASETO-1] v2.public — Ed25519/XChaCha20 — signed payload (JSON)
+Payload (before encode): {"sub":"user-001","exp":"2099-01-01T00:00:00+00:00"}
+
+v2.public.eyJzdWIiOiJ1c2VyLTAwMSIsImV4cCI6IjIwOTktMDEtMDFUMDA6MDA6MDArMDA6MDAifQ.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+[PASETO-2] v4.public — Ed25519/XChaCha20-Poly1305 — signed payload (JSON)
+Payload (before encode): {"sub":"service-account","iss":"paseto-issuer","aud":"api","iat":"2024-01-01T00:00:00Z","exp":"2099-01-01T00:00:00Z"}
+
+v4.public.eyJzdWIiOiJzZXJ2aWNlLWFjY291bnQiLCJpc3MiOiJwYXNldG8taXNzdWVyIiwiYXVkIjoiYXBpIiwiaWF0IjoiMjAyNC0wMS0wMVQwMDowMDowMFoiLCJleHAiOiIyMDk5LTAxLTAxVDAwOjAwOjAwWiJ9.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+[PASETO-3] v1.local — symmetric encrypted (payload is opaque binary)
+
+v1.local.rGyEByMsXHNFdBmGDhSlBbBQMCQB4p2gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+[PASETO-4] v3.local — AES-CTR encrypted (payload is opaque binary)
+
+v3.local.xKEBDhRkSHpOsOmLSKGvjwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+[PASETO-5] v4.public with footer (kid claim)
+Footer (before encode): {"kid":"k4.pid.example-key-id"}
+
+v4.public.eyJzdWIiOiJ1c2VyLTAwMSIsImV4cCI6IjIwOTktMDEtMDFUMDA6MDA6MDArMDA6MDAifQ.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.eyJraWQiOiJrNC5waWQuZXhhbXBsZS1rZXktaWQifQ
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SAML TOKENS  (base64-encoded XML)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[SAML-1] SAMLResponse with samlp: namespace
+XML before encoding:
+  <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" ID="_response1" Version="2.0">
+    <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">https://idp.example.com</saml:Issuer>
+    <samlp:Status><samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/></samlp:Status>
+  </samlp:Response>
+
+PHNhbWxwOlJlc3BvbnNlIHhtbG5zOnNhbWxwPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6cHJvdG9jb2wiIElEPSJfcmVzcG9uc2UxIiBWZXJzaW9uPSIyLjAiPjxzYW1sOklzc3VlciB4bWxuczpzYW1sPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6YXNzZXJ0aW9uIj5odHRwczovL2lkcC5leGFtcGxlLmNvbTwvc2FtbDpJc3N1ZXI+PHNhbWxwOlN0YXR1cz48c2FtbHA6U3RhdHVzQ29kZSBWYWx1ZT0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOnN0YXR1czpTdWNjZXNzIi8+PC9zYW1scDpTdGF0dXM+PC9zYW1scDpSZXNwb25zZT4=
+
+
+[SAML-2] SAML Assertion with saml: namespace
+XML before encoding:
+  <saml:Assertion xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" ID="_assertion1" Version="2.0">
+    <saml:Issuer>https://idp.example.com</saml:Issuer>
+    <saml:Subject>
+      <saml:NameID Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">user@example.com</saml:NameID>
+    </saml:Subject>
+    <saml:AttributeStatement>
+      <saml:Attribute Name="email"><saml:AttributeValue>user@example.com</saml:AttributeValue></saml:Attribute>
+      <saml:Attribute Name="role"><saml:AttributeValue>admin</saml:AttributeValue></saml:Attribute>
+    </saml:AttributeStatement>
+  </saml:Assertion>
+
+PHNhbWw6QXNzZXJ0aW9uIHhtbG5zOnNhbWw9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDphc3NlcnRpb24iIElEPSJfYXNzZXJ0aW9uMSIgVmVyc2lvbj0iMi4wIj48c2FtbDpJc3N1ZXI+aHR0cHM6Ly9pZHAuZXhhbXBsZS5jb208L3NhbWw6SXNzdWVyPjxzYW1sOlN1YmplY3Q+PHNhbWw6TmFtZUlEIEZvcm1hdD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6MS4xOm5hbWVpZC1mb3JtYXQ6ZW1haWxBZGRyZXNzIj51c2VyQGV4YW1wbGUuY29tPC9zYW1sOk5hbWVJRD48L3NhbWw6U3ViamVjdD48c2FtbDpBdHRyaWJ1dGVTdGF0ZW1lbnQ+PHNhbWw6QXR0cmlidXRlIE5hbWU9ImVtYWlsIj48c2FtbDpBdHRyaWJ1dGVWYWx1ZT51c2VyQGV4YW1wbGUuY29tPC9zYW1sOkF0dHJpYnV0ZVZhbHVlPjwvc2FtbDpBdHRyaWJ1dGU+PHNhbWw6QXR0cmlidXRlIE5hbWU9InJvbGUiPjxzYW1sOkF0dHJpYnV0ZVZhbHVlPmFkbWluPC9zYW1sOkF0dHJpYnV0ZVZhbHVlPjwvc2FtbDpBdHRyaWJ1dGU+PC9zYW1sOkF0dHJpYnV0ZVN0YXRlbWVudD48L3NhbWw6QXNzZXJ0aW9uPg==
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BASE64 TOKENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[BASE64-1] Plain text ("Hello, World! This is a base64 encoded string.")
+SGVsbG8sIFdvcmxkISBUaGlzIGlzIGEgYmFzZTY0IGVuY29kZWQgc3RyaW5nLg==
+
+
+[BASE64-2] JSON object — should render as formatted JSON
+Decoded: {"userId":"abc123","role":"editor","theme":"dark","locale":"en-US"}
+
+eyJ1c2VySWQiOiJhYmMxMjMiLCJyb2xlIjoiZWRpdG9yIiwidGhlbWUiOiJkYXJrIiwibG9jYWxlIjoiZW4tVVMifQ==
+
+
+[BASE64-3] JSON array — should render as formatted JSON
+Decoded: ["read","write","execute","admin"]
+
+WyJyZWFkIiwid3JpdGUiLCJleGVjdXRlIiwiYWRtaW4iXQ==
+
+
+[BASE64-4] Long plain text (multi-line paragraph)
+Decoded: "The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs."
+
+VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4gUGFjayBteSBib3ggd2l0aCBmaXZlIGRvemVuIGxpcXVvciBqdWdzLg==
+
+
+[BASE64-5] XML (not SAML — no saml:/samlp: namespace)
+Decoded: <config><setting name="debug">true</setting><setting name="version">1.0</setting></config>
+
+PGNvbmZpZz48c2V0dGluZyBuYW1lPSJkZWJ1ZyI+dHJ1ZTwvc2V0dGluZz48c2V0dGluZyBuYW1lPSJ2ZXJzaW9uIj4xLjA8L3NldHRpbmc+PC9jb25maWc+
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  INVALID / UNSUPPORTED TOKENS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[INVALID-1] Invalid base64 — contains illegal characters (@, #, spaces)
+abc123@#$%^&*()_+invalid base64 token here!
+
+
+[INVALID-2] Unsupported — random short string (no pattern match)
+not-a-token-at-all
+
+
+[INVALID-3] Unsupported — UUID (not a token)
+550e8400-e29b-41d4-a716-446655440000
+
+
+[INVALID-4] Looks like base64 but decodes to garbage (invalid UTF-8 sequences)
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  INLINE / MIXED CONTEXT (tokens embedded in code snippets)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+// Authorization header example — hover the token value:
+const headers = { Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" }
+
+// Token in a config object — hover the samlResponse value:
+const samlResponse = "PHNhbWxwOlJlc3BvbnNlIHhtbG5zOnNhbWxwPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6cHJvdG9jb2wiIElEPSJfcmVzcG9uc2UxIiBWZXJzaW9uPSIyLjAiPjxzYW1sOklzc3VlciB4bWxuczpzYW1sPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6YXNzZXJ0aW9uIj5odHRwczovL2lkcC5leGFtcGxlLmNvbTwvc2FtbDpJc3N1ZXI+PHNhbWxwOlN0YXR1cz48c2FtbHA6U3RhdHVzQ29kZSBWYWx1ZT0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOnN0YXR1czpTdWNjZXNzIi8+PC9zYW1scDpTdGF0dXM+PC9zYW1scDpSZXNwb25zZT4="
+
+// PASETO in a variable — hover the token value:
+const pasetoToken = "v4.public.eyJzdWIiOiJzZXJ2aWNlLWFjY291bnQiLCJpc3MiOiJwYXNldG8taXNzdWVyIiwiYXVkIjoiYXBpIiwiaWF0IjoiMjAyNC0wMS0wMVQwMDowMDowMFoiLCJleHAiOiIyMDk5LTAxLTAxVDAwOjAwOjAwWiJ9.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
