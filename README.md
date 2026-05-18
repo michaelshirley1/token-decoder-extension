@@ -2,6 +2,8 @@
 
 Stop pasting your tokens into shady websites. Token Decoder is a VS Code extension that decodes and inspects tokens directly in your editor. Just hover over one!
 
+<img width="357" height="389" alt="image" src="https://github.com/user-attachments/assets/05a77548-ee8e-4c80-aea3-330c372ff179" />
+
 ## Features
 
 Hover over any recognized token in any file to see a decoded breakdown inline.
