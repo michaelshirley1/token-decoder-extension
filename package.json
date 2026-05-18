@@ -2,7 +2,7 @@
   "name": "token-decoder",
   "displayName": "Token Decoder",
   "description": "Stop putting your precious tokens on shady websites! This is a open source token decoder for use in VS Code. Supports: JWT, PASETO, SAML, Base64, and more",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "MichaelShirley",
   "repository": {
     "type": "git",
@@ -15,7 +15,9 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": ["onStartupFinished"],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -25,7 +27,6 @@
       }
     ]
   },
-  
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
